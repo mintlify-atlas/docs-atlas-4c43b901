@@ -1,0 +1,86 @@
+{
+  "projectType": "saas",
+  "projectName": "PineconeMC (ElyPrismLauncher)",
+  "projectDescription": "A fork of Prism Launcher that adds integrated Ely.by account support via OAuth2 and official Ely.by authlib patches, enabling Minecraft players to use alternative authentication with full skin support across servers.",
+  "theme": "almond",
+  "primaryColor": "#4CAF50",
+  "lightColor": "#81C784",
+  "darkColor": "#2E7D32",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "installation",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Accounts & Authentication",
+            "pages": [
+              "accounts/ely-by-login",
+              "accounts/microsoft-login",
+              "accounts/offline-mode",
+              "accounts/skin-support"
+            ]
+          },
+          {
+            "group": "Managing Instances",
+            "pages": [
+              "instances/creating-instances",
+              "instances/installing-mods",
+              "instances/modpacks",
+              "instances/settings"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/java-settings",
+              "configuration/appearance",
+              "configuration/proxy-network"
+            ]
+          },
+          {
+            "group": "Development",
+            "pages": [
+              "development/building",
+              "development/contributing",
+              "development/fork-policy"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Ely.by OAuth2 authentication - credentials never leave the browser",
+    "Official Ely.by authlib patches for server-side skin support",
+    "Microsoft (MSA) account support retained alongside Ely.by",
+    "Offline mode for playing without an account",
+    "Instance isolation - keep multiple Minecraft setups cleanly separated",
+    "Integrated mod and modpack installation from CurseForge, Modrinth, and more",
+    "Automatic Java detection and management",
+    "Skin and cape management directly from the launcher",
+    "Customizable themes and appearance",
+    "Pre/post-launch command hooks"
+  ],
+  "publicApiSurface": [
+    "AccountType enum: MSA, Ely, Offline",
+    "AccountState enum: Unchecked, Offline, Working, Online, Disabled, Errored, Expired, Gone",
+    "ElyStep / ElyDeviceCodeStep - OAuth2 authentication flow for Ely.by",
+    "ElyYggdrasilTokenStep - Yggdrasil token retrieval",
+    "MinecraftProfileStepEly - profile retrieval via Ely.by API",
+    "PineconeNetworkCheck - network availability and URL resolution",
+    "MinecraftAccount - account management",
+    "AccountList - multi-account management",
+    "SkinList / SkinUpload / SkinDelete / CapeChange - skin/cape management",
+    "LaunchTask / LaunchController - game launch orchestration",
+    "PackProfile - component/version management per instance",
+    "epl_metadata.json - authlib override mappings and authlib-injector URL"
+  ]
+}

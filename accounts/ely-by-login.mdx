@@ -1,0 +1,79 @@
+---
+title: "Authenticate with Your Ely.by Account in PineconeMC"
+description: "Log into PineconeMC with your Ely.by account via OAuth2. Your credentials are never shared with the launcher — only a limited-privilege token is issued."
+---
+
+PineconeMC uses OAuth2 to authenticate your Ely.by account. You log in directly on the official Ely.by website in your browser, and Ely.by issues the launcher a limited-privilege access token. Your password is never entered into, stored in, or transmitted through PineconeMC.
+
+## Login methods
+
+PineconeMC implements two flows for Ely.by authentication, both backed by the same OAuth2 mechanism.
+
+<Tabs>
+  <Tab title="Browser-based (recommended)">
+    The `ElyStep` flow opens your default browser and directs you to the official Ely.by authorization page. After you approve the request, Ely.by redirects back to the launcher with an authorization code that is exchanged for an access token. No credentials pass through PineconeMC at any point.
+  </Tab>
+  <Tab title="Device code">
+    The `ElyDeviceCodeStep` flow is intended for environments where a browser cannot open automatically — such as headless systems or remote desktops. PineconeMC displays a short user code and a URL. You open that URL on any device, enter the code, and the launcher polls for confirmation. This flow uses the same OAuth2 token endpoint as the browser flow.
+  </Tab>
+</Tabs>
+
+## Adding an Ely.by account
+
+<Steps>
+  <Step title="Open the Accounts menu">
+    Click the **Accounts** button in the top-right corner of the PineconeMC window, then choose **Manage Accounts**.
+  </Step>
+  <Step title="Add a new account">
+    Click **Add Account** and select **Ely.by** from the account type list.
+  </Step>
+  <Step title="Authenticate in your browser">
+    PineconeMC opens your default browser. Log into your Ely.by account and approve the authorization request on the official Ely.by website.
+  </Step>
+  <Step title="Return to the launcher">
+    After you approve the request, your browser redirects back and the launcher receives an access token. The account appears in the accounts list with the `[Ely]` label.
+  </Step>
+</Steps>
+
+<Note>
+  Your Ely.by credentials are never entered into PineconeMC and are never transmitted through it. Only the OAuth2 token issued by Ely.by is stored locally.
+</Note>
+
+<Tip>
+  If your browser does not open automatically, use the device code flow. In the Add Account dialog, enable **Use device code** before proceeding. PineconeMC will display a code and URL you can open on any device.
+</Tip>
+
+## Token exchange: Yggdrasil
+
+After the OAuth2 step completes, PineconeMC runs `ElyYggdrasilTokenStep` to obtain a Yggdrasil-compatible access token. This is the token passed to Minecraft at launch and used for session authentication. It is derived from the OAuth2 token without requiring any further login interaction.
+
+## Account states
+
+The `AccountState` enum in `AccountData.h` tracks the current condition of your account. You will see these states reflected in the accounts list.
+
+<AccordionGroup>
+  <Accordion title="Unchecked">
+    The account has been added but not yet verified. PineconeMC has not attempted to contact Ely.by servers since the account was loaded.
+  </Accordion>
+  <Accordion title="Offline">
+    PineconeMC could not reach Ely.by servers, but the stored token may still be valid. The account can be used if the token has not expired.
+  </Accordion>
+  <Accordion title="Working">
+    A token refresh or verification is currently in progress.
+  </Accordion>
+  <Accordion title="Online">
+    The account has been verified and the token is valid. This is the normal operating state.
+  </Accordion>
+  <Accordion title="Disabled">
+    The account has been disabled and will not be used for launching instances.
+  </Accordion>
+  <Accordion title="Errored">
+    An error occurred during the last authentication attempt. Check the error message in the account details and try refreshing.
+  </Accordion>
+  <Accordion title="Expired">
+    The access token has expired. PineconeMC will attempt to refresh it automatically; if that fails, you will need to log in again.
+  </Accordion>
+  <Accordion title="Gone">
+    The account could not be found on the Ely.by servers. This can happen if the account was deleted or its UUID changed.
+  </Accordion>
+</AccordionGroup>

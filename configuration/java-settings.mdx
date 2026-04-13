@@ -1,0 +1,99 @@
+---
+title: "Configure Java Version and Memory Settings in PineconeMC"
+description: "Set up Java auto-detection, configure minimum and maximum heap memory, pass custom JVM flags, and override Java settings on a per-instance basis."
+---
+
+PineconeMC manages Java automatically but gives you full manual control when you need it. Global Java settings apply to every instance by default, and you can override any of them on a per-instance basis without touching your global configuration.
+
+## Auto-detection
+
+PineconeMC can scan your system for installed JVMs and populate a list of discovered installations. The auto-detect feature uses `JavaUtils::FindJavaPaths()` to search standard locations on your operating system — registry keys on Windows, common paths on Linux and macOS, and any Minecraft-bundled or launcher-bundled runtimes (`getMinecraftJavaBundle()`, `getPrismJavaBundle()`).
+
+Each discovered entry shows its version, architecture (32-bit or 64-bit), and full path.
+
+<Tip>
+  Use the **Auto-detect** button in **Settings → Java** to populate the list without manually browsing for a binary. PineconeMC will find JVMs in the registry, standard system directories, and any Minecraft-managed runtimes.
+</Tip>
+
+## Manual Java path
+
+If auto-detection does not find the JVM you want — for example a custom build or a version installed in an unusual location — you can specify the exact path to the `java` (or `java.exe` on Windows) binary using the **Browse** button.
+
+The path is stored and validated by `JavaSettingsWidget`; you can also click **Test** after setting a path to confirm the binary works correctly.
+
+## Memory settings
+
+Two fields control how much heap memory Java is allowed to use for Minecraft:
+
+| Field | JVM flag | Description |
+|---|---|---|
+| Minimum memory | `-Xms` | Heap size Java starts with at launch |
+| Maximum memory | `-Xmx` | Hard ceiling on heap growth |
+
+Both values are entered in **megabytes (MB)**. To allocate 4 GB maximum, enter `4096`. To allocate 8 GB, enter `8192`.
+
+<AccordionGroup>
+  <Accordion title="How much memory should I give Minecraft?">
+    The right amount depends on the modpack and what version you are playing:
+
+    - **Vanilla / lightly modded** — 2048 MB (2 GB) minimum memory and 4096 MB (4 GB) maximum is plenty for most setups.
+    - **Medium modpacks (50–100 mods)** — 3072–6144 MB maximum.
+    - **Large modpacks (Forge/Fabric with 150+ mods)** — 6144–8192 MB or more.
+
+    Allocating too much memory is not always better. Giving Java more heap than it needs can cause longer garbage-collection pauses and actually hurt performance. Start with 4 GB and increase only if the game runs out of memory or becomes laggy.
+
+    Setting minimum memory (`-Xms`) equal to maximum memory (`-Xmx`) avoids repeated heap resizes, which is a common optimization for dedicated servers but is optional on clients.
+  </Accordion>
+</AccordionGroup>
+
+## JVM arguments
+
+The **JVM arguments** field accepts additional flags passed directly to the Java process before the game launches. This is where you add garbage-collector tuning, flight recorder flags, or any other low-level JVM options.
+
+Example flags:
+
+```text
+-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200
+```
+
+<Note>
+  PineconeMC validates JVM arguments when you save settings via `JavaCommon::checkJVMArgs()`. Malformed flags will produce a warning before the settings are applied.
+</Note>
+
+## Java version requirements
+
+Different Minecraft versions require different minimum Java versions:
+
+| Minecraft version | Minimum Java |
+|---|---|
+| 1.17 and later | Java 17 |
+| 1.16.5 and earlier | Java 8 |
+
+PineconeMC stores each discovered installation as a `JavaInstall` with a `JavaVersion` ID and architecture string. When you select a JVM from the list, verify that the version matches the Minecraft releases you intend to play.
+
+## Configuring Java globally
+
+<Steps>
+  <Step title="Open Settings">
+    In the PineconeMC toolbar, click the **Settings** button (or go to **File → Settings**).
+  </Step>
+  <Step title="Navigate to the Java tab">
+    Select **Java** from the left-hand page list.
+  </Step>
+  <Step title="Detect or browse for a Java installation">
+    Click **Auto-detect** to scan your system, then pick the desired JVM from the list. Alternatively, click **Browse** to navigate to the `java` binary manually.
+  </Step>
+  <Step title="Set memory limits">
+    Enter your desired values in the **Minimum memory** and **Maximum memory** fields (in MB).
+  </Step>
+  <Step title="Add any custom JVM arguments (optional)">
+    Enter extra flags in the **JVM arguments** field.
+  </Step>
+  <Step title="Click OK to save">
+    The settings are applied to all instances that do not have their own Java override.
+  </Step>
+</Steps>
+
+<Note>
+  Per-instance Java settings override the global defaults. To configure Java for a specific instance, right-click it, choose **Edit**, and open the **Settings** tab. See [instance settings](/instances/settings) for details.
+</Note>

@@ -1,0 +1,77 @@
+---
+title: "Install Modpacks from ATLauncher, FTB, Modrinth, and More"
+description: "PineconeMC supports installing complete modpacks from ATLauncher, CurseForge, FTB, Technic, and Modrinth — plus local ZIP imports — in a single step."
+---
+
+PineconeMC supports installing complete modpacks from multiple platforms in one click. Each modpack creates its own isolated instance, so you can run several modpacks side by side without conflicts.
+
+## Supported platforms
+
+PineconeMC can browse and install modpacks from the following sources:
+
+- **ATLauncher** — large catalogue of curated modpacks
+- **CurseForge (Flame)** — the biggest modpack repository
+- **FTB (Feed the Beast)** — official FTB modpacks via the FTB API
+- **Technic** — Technic launcher modpacks
+- **Modrinth** — modpacks hosted on the Modrinth platform
+- **packwiz** — modpacks distributed via packwiz manifests
+
+You can also import modpacks from a **local ZIP file** if you have a pack downloaded separately or exported from another launcher.
+
+<Tip>
+  For older FTB packs not available through the main FTB browser, use the **Legacy FTB** import option. This is available in the Add Instance dialog under the import section.
+</Tip>
+
+## Install a modpack
+
+<Steps>
+  <Step title="Open the Add Instance dialog">
+    Click **Add Instance** in the main toolbar, or go to **Instance → Add Instance**.
+  </Step>
+  <Step title="Select a platform">
+    Choose a platform tab: **ATLauncher**, **CurseForge**, **FTB**, **Technic**, **Modrinth**, or **Import** for a local file.
+  </Step>
+  <Step title="Search for a modpack">
+    Enter a search term or browse the featured packs. Use the version filter to narrow results to a specific Minecraft version.
+  </Step>
+  <Step title="Select a version and install">
+    Click on a modpack, choose the pack version from the dropdown, then click **OK**. PineconeMC downloads and installs the modpack — including the mod loader, mods, and any included configuration — as a new instance.
+  </Step>
+</Steps>
+
+## Import a local modpack ZIP
+
+<Steps>
+  <Step title="Open the Add Instance dialog">
+    Click **Add Instance** in the main toolbar.
+  </Step>
+  <Step title="Go to the Import tab">
+    Select the **Import** tab in the dialog.
+  </Step>
+  <Step title="Browse for the ZIP file">
+    Click **Browse** and select the modpack ZIP file on your computer. PineconeMC supports CurseForge, Modrinth, and ATLauncher pack formats.
+  </Step>
+  <Step title="Click OK">
+    Click **OK** to import. PineconeMC extracts the pack and downloads any required files to create the instance.
+  </Step>
+</Steps>
+
+## Update a modpack
+
+For modpacks installed from Modrinth or CurseForge, PineconeMC tracks the installed version and can check for updates.
+
+<Steps>
+  <Step title="Open the instance">
+    Right-click the modpack instance and select **Edit**, or double-click to open it.
+  </Step>
+  <Step title="Go to the pack management page">
+    Select the **Managed Pack** tab in the instance window. This shows the currently installed version and available updates from the source platform.
+  </Step>
+  <Step title="Select a new version and update">
+    Choose the version you want to update to from the dropdown, then click **Update**. You can also update from a local file using **Update from file**.
+  </Step>
+</Steps>
+
+<Note>
+  Modpack updates replace instance components in place. For significant updates, consider copying the instance first to keep a working backup before applying the update.
+</Note>

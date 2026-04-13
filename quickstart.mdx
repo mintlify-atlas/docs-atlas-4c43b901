@@ -1,80 +1,64 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: "Get Started with PineconeMC: First Launch to Playing"
+description: "Go from a fresh PineconeMC install to playing Minecraft — add your Ely.by or Microsoft account, create an instance, and launch the game."
 ---
 
-## Get started in three steps
+After installing PineconeMC, a setup wizard walks you through the essentials on first launch. This guide covers each step so you can get into a game as quickly as possible.
 
-Get your documentation site running locally and make your first customization.
+<Steps>
+  <Step title="Launch PineconeMC for the first time">
+    Open PineconeMC. The setup wizard starts automatically and guides you through language selection and basic preferences. Complete the wizard and you will land on the main launcher window.
+  </Step>
+  <Step title="Add your account">
+    Click the **Accounts** button in the top-right corner of the launcher, then select **Add Account**.
 
-### Step 1: Set up your local environment
+    - Choose **Ely.by** to log in with an Ely.by account — a browser window opens so you can authenticate on the official Ely.by site.
+    - Choose **Microsoft** to log in with a Microsoft account linked to Minecraft Java Edition.
+    - Choose **Offline** to play without an account on servers that do not require authentication.
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    <Tip>
+      Use the Ely.by OAuth2 option rather than an offline Ely.by workaround. OAuth2 means PineconeMC never handles your password — Ely.by issues a limited-privilege token directly to the launcher.
+    </Tip>
 
-### Step 2: Deploy your changes
+    <Info>
+      For a detailed walkthrough of Ely.by login, see [Ely.by account setup](/accounts/ely-by-login).
+    </Info>
+  </Step>
+  <Step title="Create a Minecraft instance">
+    Click **Add Instance** in the toolbar. Select the Minecraft version you want to play. Optionally choose a mod loader:
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+    - **Fabric** — fast, lightweight, good for performance mods
+    - **Forge** — the most widely supported loader for large modpacks
+    - **Quilt** — a Fabric fork with additional modding APIs
+    - **NeoForge** — a Forge fork with a modernized API
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+    Click **OK** to create the instance. PineconeMC downloads the selected version automatically.
+  </Step>
+  <Step title="Configure Java">
+    PineconeMC can detect and manage Java for you. Go to **Settings → Java** and click **Auto-detect** to find Java installations on your system. For Minecraft 1.17 and later, Java 17 or newer is required. For older versions, Java 8 works best.
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+    You can also let PineconeMC download a compatible Java version automatically when you first launch an instance.
+  </Step>
+  <Step title="Launch your first game">
+    Select your instance in the main window and click **Launch**. PineconeMC applies the Ely.by authlib patches automatically, starts the game, and opens the Minecraft log window so you can monitor startup.
 
-### Step 3: Go live
-
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+    Once the Minecraft title screen appears, you are ready to play.
+  </Step>
+</Steps>
 
 ## Next steps
 
-Now that you have your docs running, explore these key features:
-
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="Ely.by account setup" icon="key" href="/accounts/ely-by-login">
+    Learn more about OAuth2 authentication and managing your Ely.by account.
+  </Card>
+  <Card title="Creating instances" icon="cubes" href="/instances/creating-instances">
+    Explore instance settings, mod loaders, and version management.
+  </Card>
+  <Card title="Installing mods" icon="puzzle-piece" href="/instances/installing-mods">
+    Browse and install mods from Modrinth and CurseForge inside the launcher.
+  </Card>
+  <Card title="Java settings" icon="coffee" href="/configuration/java-settings">
+    Fine-tune memory limits, Java arguments, and runtime selection.
+  </Card>
 </CardGroup>
-
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>

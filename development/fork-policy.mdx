@@ -1,0 +1,67 @@
+---
+title: "Forking, Redistributing, and Custom Builds of PineconeMC"
+description: "PineconeMC is GPL-3.0. Forks and custom builds are permitted under those terms, with courtesy requests around branding and API key replacement."
+---
+
+PineconeMC is licensed under the GPL-3.0-only license, which means you are free to fork it, redistribute it, and provide custom builds. The legal requirements and some courtesy requests are described below.
+
+## Legal requirement
+
+All launcher code is available under **GPL-3.0-only**. Any fork or redistribution must comply with the terms of that license. The logo and related assets are separately licensed under **CC BY-SA 4.0**.
+
+You can read the full license text in [LICENSE](https://github.com/ElyPrismLauncher/Launcher/blob/develop/LICENSE) and the full copyright notices in [COPYING.md](https://github.com/ElyPrismLauncher/Launcher/blob/develop/COPYING.md).
+
+## Courtesy requests
+
+If you have made code changes (rather than just repackaging a build), please do the following as a basic courtesy:
+
+1. **Make clear your fork is not PineconeMC or Prism Launcher.** State that your project is not endorsed by or affiliated with the Prism Launcher project ([prismlauncher.org](https://prismlauncher.org)) or with PineconeMC.
+2. **Replace or remove API keys.** Go through `CMakeLists.txt` and replace the bundled API keys with your own, or set them to empty strings (`""`) to disable the associated features. See [What API keys need to be replaced?](#what-api-keys-need-to-be-replaced) below.
+
+If you have questions about these conditions, open an issue in the repository.
+
+## Distribution builds
+
+<Note>
+  If you are packaging PineconeMC for a Linux distribution or package manager, set the `Launcher_BUILD_PLATFORM` CMake variable to a slug that identifies your distribution:
+
+  ```bash
+  cmake -B build -DCMAKE_BUILD_TYPE=Release -DLauncher_BUILD_PLATFORM=fedora
+  ```
+
+  Examples: `archlinux`, `fedora`, `nixpkgs`.
+</Note>
+
+## API keys
+
+<Warning>
+  Building with the default API keys from `CMakeLists.txt` without replacing them means you accept the following terms:
+
+  - [Microsoft Identity Platform Terms of Use](https://docs.microsoft.com/en-us/legal/microsoft-identity-platform/terms-of-use)
+  - [CurseForge 3rd Party API Terms and Conditions](https://support.curseforge.com/en/support/solutions/articles/9000207405-curse-forge-3rd-party-api-terms-and-conditions)
+
+  If you do not agree with these terms, set the relevant keys to empty strings (`""`) in `CMakeLists.txt`. The program will still compile and run; only the features that depend on those keys will be disabled.
+</Warning>
+
+<AccordionGroup>
+  <Accordion title="What API keys need to be replaced?">
+    Two sets of API keys are embedded in `CMakeLists.txt`:
+
+    - **Microsoft Identity Platform key** — used for Microsoft/Xbox account authentication. If removed, Microsoft account login is disabled.
+    - **CurseForge 3rd Party API key** — used to search and download mods from CurseForge. If removed, CurseForge integration is disabled.
+
+    To disable a key, find the corresponding variable in `CMakeLists.txt` and set its value to an empty string:
+
+    ```cmake
+    # Example: disabling a key
+    set(Launcher_MSA_CLIENT_ID "" CACHE STRING "MSA client ID")
+    ```
+
+    The program will still compile and all other features will continue to work normally.
+  </Accordion>
+  <Accordion title="Do I need to open-source my fork?">
+    Yes. GPL-3.0 requires that any modified version you distribute is also released under GPL-3.0 and that you make the corresponding source code available to recipients. This is a legal requirement, not merely a courtesy.
+
+    The CC BY-SA 4.0 logo and assets similarly require attribution and that any derivatives be shared under the same license.
+  </Accordion>
+</AccordionGroup>

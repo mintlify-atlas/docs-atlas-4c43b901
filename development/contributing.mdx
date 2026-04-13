@@ -1,0 +1,151 @@
+---
+title: "How to Contribute Code, Fixes, and Docs to PineconeMC"
+description: "Contribute code to PineconeMC by forking, branching, signing off commits with the DCO, and opening a pull request. Covers code style and AI policy."
+---
+
+Contributions to PineconeMC are welcome. The general process is: fork the repository, create a branch, make your changes, sign off every commit, and open a pull request against `develop`. A DCO check runs automatically and will flag any unsigned commits.
+
+## How to submit a contribution
+
+<Steps>
+  <Step title="Fork and clone the repository">
+    Fork [ElyPrismLauncher/Launcher](https://github.com/ElyPrismLauncher/Launcher) on GitHub, then clone your fork locally:
+
+    ```bash
+    git clone https://github.com/<your-username>/Launcher.git
+    cd Launcher
+    ```
+  </Step>
+  <Step title="Create a branch">
+    Work on a dedicated branch rather than directly on `develop`:
+
+    ```bash
+    git checkout -b my-feature
+    ```
+  </Step>
+  <Step title="Make your changes">
+    Follow the [code style](#code-style) guidelines below. Run `clang-format` on any changed files before committing.
+  </Step>
+  <Step title="Sign off your commits">
+    Pass `-s` to `git commit` to add a `Signed-off-by` line:
+
+    ```bash
+    git commit -s -m "feat: describe your change"
+    ```
+
+    See [DCO sign-off](#dco-sign-off) for why this is required.
+  </Step>
+  <Step title="Open a pull request">
+    Push your branch and open a PR against `develop`. The DCO check and CI build will run automatically. Address any feedback from reviewers.
+  </Step>
+</Steps>
+
+## Code style
+
+All C++ files are formatted with `clang-format` using the configuration in `.clang-format`. Run it on every changed file before committing. You can also run `clang-tidy` — most conventions are encoded in `.clang-tidy` — to catch naming violations.
+
+**Naming conventions:**
+
+| Kind | Convention | Example |
+|---|---|---|
+| Classes and types | `PascalCase` | `MyClass` |
+| Private/protected data members | `camelCase` with `m_` prefix | `m_myCounter` |
+| Private/protected static data members | `camelCase` with `s_` prefix | `s_instance` |
+| Public data members | `camelCase`, no prefix | `dateOfBirth` |
+| `static const` / `static constexpr` members | `SCREAMING_SNAKE_CASE` | `MAX_VALUE` |
+| Member functions (any access) | `camelCase`, no prefix | `incrementCounter` |
+| Global functions and non-`const` globals | `camelCase`, no prefix | `globalData` |
+| `const` globals and macros | `SCREAMING_SNAKE_CASE` | `LIGHT_GRAY` |
+| Enum constants | `PascalCase` | `CamelusBactrianus` |
+
+Here is how these conventions look together with the formatting configuration:
+
+```cpp
+#define AWESOMENESS 10
+
+constexpr double PI = 3.14159;
+
+enum class PizzaToppings { HamAndPineapple, OreoAndKetchup };
+
+struct Person {
+    QString name;
+    QDateTime dateOfBirth;
+
+    long daysOld() const { return dateOfBirth.daysTo(QDateTime::currentDateTime()); }
+};
+
+class ImportantClass {
+   public:
+    void incrementCounter()
+    {
+        if (m_counter + 1 > MAX_COUNTER_VALUE)
+            throw std::runtime_error("Counter has reached limit!");
+
+        ++m_counter;
+    }
+
+    int counter() const { return m_counter; }
+
+   private:
+    static constexpr int MAX_COUNTER_VALUE = 100;
+    int m_counter;
+};
+
+ImportantClass importantClassInstance;
+```
+
+<Note>
+  If you encounter existing names that don't follow these conventions, leave them as-is. Renaming increases diff size, complicates review, and creates merge conflicts. Renaming is fine when refactoring an entire class anyway.
+</Note>
+
+## DCO sign-off
+
+PineconeMC requires every commit to carry a `Signed-off-by` line as part of the [Developer Certificate of Origin (DCO)](https://developercertificate.org/). This is a lightweight way of certifying that you have the right to submit the code under the project's open-source license.
+
+Add the sign-off automatically with:
+
+```bash
+git commit -s -m "your commit message"
+```
+
+This appends the following to your commit message:
+
+```text
+Signed-off-by: Your Name <your@email.example>
+```
+
+The DCO check is enforced automatically on every pull request. If any commit is missing the sign-off, you will be notified.
+
+<Tip>
+  You can also [cryptographically sign your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) and enable [vigilant mode](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits) on GitHub so that all your commits display a verified badge.
+</Tip>
+
+## AI policy
+
+PineconeMC expects authentic engagement from contributors. The following rules apply to the use of generative AI tools:
+
+- **Do not post raw LLM output as comments** on GitHub issues, pull requests, or in Discord. Such comments tend to be formulaic and low-quality.
+- **Understand every change you submit.** If you used an AI tool to help write code or documentation, you must be able to explain why every change is correct. Just prompting an AI and submitting the result is not a contribution of value.
+- **AI agents must not add `Signed-off-by` tags.** Only a human can legally certify the DCO. The human submitter is responsible for reviewing all AI-generated code, ensuring license compliance, and adding their own sign-off.
+
+### Attribution
+
+When AI tools contribute to your work, add an `Assisted-by` tag in the commit message:
+
+```text
+Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]
+```
+
+- `AGENT_NAME` — name of the AI tool or framework
+- `MODEL_VERSION` — specific model version used
+- `[TOOL1] [TOOL2]` — optional specialized analysis tools (e.g., `coccinelle`, `sparse`, `clang-tidy`)
+
+Basic development tools (git, gcc, make, editors) should not be listed. Example:
+
+```text
+Assisted-by: Claude:claude-3-opus coccinelle sparse
+```
+
+## Backporting
+
+Fixes and improvements are occasionally backported from `develop` to `release` branches using [automated backports](https://github.com/ElyPrismLauncher/Launcher/blob/develop/.github/workflows/backport.yml). This happens when a pull request is merged and carries a label such as `backport release-7.x`, which should be added alongside the appropriate release milestone.

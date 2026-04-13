@@ -1,0 +1,47 @@
+---
+title: "PineconeMC: Minecraft Launcher with Ely.by Integration"
+description: "PineconeMC is a Prism Launcher fork with native Ely.by OAuth2 login and official authlib patches for full skin support on any server."
+---
+
+PineconeMC is a fork of [Prism Launcher](https://prismlauncher.org) that adds native support for [Ely.by](https://ely.by) accounts. It goes beyond the simple username/password prompts found in other forks: PineconeMC uses OAuth2 so your credentials never pass through the launcher, and it applies Ely.by's official authlib patches so your skin appears on any server — not just those running special plugins.
+
+<CardGroup cols={2}>
+  <Card title="Quick start" icon="rocket" href="/quickstart">
+    Set up your account and launch Minecraft in minutes.
+  </Card>
+  <Card title="Ely.by login" icon="key" href="/accounts/ely-by-login">
+    Authenticate securely with your Ely.by account via OAuth2.
+  </Card>
+  <Card title="Creating instances" icon="cubes" href="/instances/creating-instances">
+    Create and organize multiple Minecraft installations.
+  </Card>
+  <Card title="Building from source" icon="code" href="/development/building">
+    Compile PineconeMC yourself from the source code.
+  </Card>
+</CardGroup>
+
+## Why PineconeMC?
+
+Several forks of Prism Launcher add Ely.by support, but most stop at patching in a login-password form. PineconeMC takes a different approach on two fronts.
+
+**Secure OAuth2 authentication.** PineconeMC opens the official Ely.by website in your browser for login. Ely.by then issues the launcher a limited-privilege token. Your password is never typed into or stored by the launcher.
+
+**Skins everywhere.** Other forks rely exclusively on [authlib-injector](https://github.com/yushijinhun/authlib-injector), which only works for skins on servers that have a compatible plugin installed. PineconeMC also applies Ely.by's official authlib patches, which allow the game client itself to resolve Ely.by skins regardless of what plugins the server is running.
+
+## Supported account types
+
+PineconeMC supports three account types, as defined in the launcher source:
+
+| Type | Description |
+|------|-------------|
+| **Ely** | Ely.by account, authenticated via OAuth2 |
+| **MSA** | Microsoft account for owners of the official Minecraft Java Edition |
+| **Offline** | Offline mode for playing on LAN or servers that do not require authentication |
+
+## Inherited features
+
+Because PineconeMC is a full fork of Prism Launcher, it inherits all of its instance management capabilities: installing mods from Modrinth and CurseForge, managing modpacks, controlling Java settings, isolating instances, and more.
+
+<Note>
+  PineconeMC is not endorsed by or affiliated with Prism Launcher or Ely.by. It is an independent community fork distributed under the GPL-3.0-only license.
+</Note>

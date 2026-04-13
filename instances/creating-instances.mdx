@@ -1,0 +1,79 @@
+---
+title: "Create and Manage Isolated Minecraft Instances in PineconeMC"
+description: "Each PineconeMC instance is a fully isolated Minecraft installation. Create, copy, and organize instances with independent mods, settings, and worlds."
+---
+
+Each instance in PineconeMC is an independent Minecraft installation with its own mods, resource packs, shader packs, worlds, and settings. Changes to one instance never affect another, so you can safely experiment, test new mod loaders, or run multiple modpacks side by side.
+
+## Create a new instance
+
+<Steps>
+  <Step title="Open the New Instance dialog">
+    Click the **Add Instance** button in the main toolbar, or go to **Instance → Add Instance** from the menu bar.
+  </Step>
+  <Step title="Choose a Minecraft version">
+    Select the Minecraft version you want to use from the version list. You can filter by release, snapshot, or old versions using the checkboxes at the top.
+  </Step>
+  <Step title="Select a mod loader (optional)">
+    Choose a mod loader if you plan to install mods. PineconeMC supports:
+
+    - **Vanilla** — no mod loader, plain Minecraft
+    - **Fabric** — lightweight, fast-updating loader
+    - **Forge** — the most established modding platform
+    - **Quilt** — a Fabric-compatible loader with additional features
+    - **NeoForge** — a community fork of Forge
+
+    If you only want vanilla Minecraft, leave the loader as Vanilla.
+  </Step>
+  <Step title="Name the instance">
+    Enter a name for your instance. The name appears in the main window and is used as the instance folder name on disk.
+  </Step>
+  <Step title="Click Create">
+    Click **OK** to create the instance. PineconeMC downloads the required game files and mod loader components in the background.
+  </Step>
+</Steps>
+
+<Tip>
+  Use groups to organize many instances. Right-click any instance and select **Edit Group** to assign it to a named group, or drag instances into an existing group in the main window.
+</Tip>
+
+<Info>
+  Instances are stored in the configured instance directory. You can change this location in **Settings → Folders → Instance directory**.
+</Info>
+
+## What's next
+
+<CardGroup cols={3}>
+  <Card title="Install mods" icon="puzzle" href="/instances/installing-mods">
+    Browse and install mods from Modrinth and CurseForge directly inside the launcher.
+  </Card>
+  <Card title="Install modpacks" icon="box" href="/instances/modpacks">
+    Install complete modpacks from ATLauncher, CurseForge, FTB, Technic, and Modrinth.
+  </Card>
+  <Card title="Configure settings" icon="sliders" href="/instances/settings">
+    Set per-instance Java versions, memory limits, launch commands, and more.
+  </Card>
+</CardGroup>
+
+## Copy an instance
+
+You can duplicate an existing instance — useful for keeping a clean backup before installing new mods or testing an update.
+
+Right-click an instance and select **Copy Instance**. A dialog lets you choose exactly what to carry over:
+
+| Option | Description |
+|---|---|
+| Copy saves | Copies your single-player world saves |
+| Keep playtime | Preserves the recorded playtime counter |
+| Copy game options | Copies `options.txt` (keybinds, video settings, etc.) |
+| Copy resource packs | Includes installed resource packs |
+| Copy shader packs | Includes installed shader packs |
+| Copy servers | Copies your server list |
+| Copy mods | Copies installed mods |
+| Copy screenshots | Copies the screenshots folder |
+
+Advanced users can also choose to use **symbolic links**, **hard links**, or **cloning** instead of a full copy to save disk space.
+
+## Export an instance
+
+To share an instance or back it up, right-click it and select **Export Instance**. PineconeMC exports the instance as a ZIP archive that can be imported on another machine or shared with others.

@@ -1,0 +1,82 @@
+---
+title: "Ely.by Skin Support via Authlib Patches in PineconeMC"
+description: "PineconeMC enables Ely.by skins on any server via official authlib patches — no server plugin needed. authlib-injector handles client-side rendering."
+---
+
+PineconeMC uses a two-layer approach to Ely.by skin support. The first layer is authlib-injector, a community tool that patches Minecraft's authentication library at launch time and handles client-side skin rendering. The second — and more capable — layer is Ely.by's official authlib patches, which replace Mojang's `com.mojang:authlib` with `by.ely:authlib` at the library level. This second layer enables skin rendering on servers without requiring any additional server-side plugin or configuration.
+
+## The two layers
+
+<Tabs>
+  <Tab title="Ely.by official authlib patches">
+    PineconeMC replaces `com.mojang:authlib` with `by.ely:authlib` by applying the overrides defined in `epl_metadata.json`. This is a JAR-level replacement: the game loads Ely.by's patched authlib instead of Mojang's. Because the replacement covers the server-side profile lookup path, other players on servers — even those running vanilla or without any skins plugin — can see your Ely.by skin.
+
+    The override covers every supported authlib version, from `1.2` through `7.0.61`, each mapped to the corresponding `by.ely:authlib` release. Overrides are fetched from `llaun.ch/repo`.
+  </Tab>
+  <Tab title="authlib-injector">
+    authlib-injector is a Java agent that patches Minecraft's auth library at runtime using a yggdrasil API URL. PineconeMC bundles a reference to authlib-injector v1.2.6 in `epl_metadata.json` under the `extras.authlib-injector` key. It handles client-side skin rendering and is used as a compatibility layer when the official authlib patch cannot be applied.
+  </Tab>
+</Tabs>
+
+## Authlib override structure
+
+The `epl_metadata.json` file defines the overrides that PineconeMC applies at launch. Each entry maps a `com.mojang:authlib` version to its `by.ely:authlib` replacement:
+
+```json epl_metadata.json
+{
+  "overrides": {
+    "com.mojang:authlib": {
+      "7.0.61": {
+        "name": "by.ely:authlib:7.0.61-ely.1",
+        "url": "https://llaun.ch/repo/libraries/by/ely/authlib/7.0.61-ely.1/authlib-7.0.61-ely.1.jar",
+        "sha1": "af1191a79834f44dcc582291b7325954878047f7",
+        "size": 120707
+      }
+    }
+  },
+  "extras": {
+    "authlib-injector": "https://github.com/yushijinhun/authlib-injector/releases/download/v1.2.6/authlib-injector-1.2.6.jar"
+  }
+}
+```
+
+Each override entry includes the artifact name, download URL, SHA-1 hash, and file size. PineconeMC verifies the hash before using the JAR.
+
+## Skin and cape management
+
+PineconeMC provides built-in skin management for Ely.by accounts. The relevant components in the launcher are:
+
+| Component | Role |
+|---|---|
+| `SkinList` | Manages the local collection of skin files, watches the skin directory for changes, and tracks which skin is active for the signed-in account. |
+| `SkinModel` | Represents a single skin: stores the texture, preview image, model type (`CLASSIC` or `SLIM`), cape ID, and remote URL. |
+| `SkinUpload` | Sends a skin PNG and its model variant to the Ely.by API using the account's access token. |
+| `SkinDelete` | Removes the currently active skin from the Ely.by account via the API. |
+| `CapeChange` | Sets the active cape on the Ely.by account by submitting a cape ID to the API. |
+
+## Changing your skin
+
+<Steps>
+  <Step title="Open account management">
+    Click the **Accounts** button in the top-right corner of PineconeMC, then choose **Manage Accounts**.
+  </Step>
+  <Step title="Open skin management">
+    Right-click your Ely.by account in the list and select **Manage Skins**.
+  </Step>
+  <Step title="Add or select a skin">
+    Drag a skin PNG into the skin list, or click **Add Skin** to browse for a file. Select a skin from your local collection to make it active.
+  </Step>
+  <Step title="Set the model">
+    Choose **Classic** (Steve-type, wide arms) or **Slim** (Alex-type, narrow arms) to match your skin's model.
+  </Step>
+  <Step title="Upload to Ely.by">
+    Click **Upload** to send the selected skin to your Ely.by account. The change takes effect server-side immediately after the upload completes.
+  </Step>
+  <Step title="Change your cape (optional)">
+    If your Ely.by account has capes available, select one from the cape list and click **Set Cape**.
+  </Step>
+</Steps>
+
+<Note>
+  Skin management through PineconeMC requires an Ely.by account. Microsoft accounts use Mojang's skin system and cannot be managed from this panel — use the official Minecraft profile page for those accounts.
+</Note>

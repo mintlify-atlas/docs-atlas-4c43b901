@@ -1,97 +1,61 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "PineconeMC: Minecraft Launcher with Ely.by Support"
+description: "PineconeMC is a Prism Launcher fork with native Ely.by OAuth2 authentication and official authlib patches for full skin support on any server."
 ---
 
-## Setting up
+PineconeMC is a Minecraft launcher built on Prism Launcher that adds first-class support for [Ely.by](https://ely.by) accounts. Unlike other forks, PineconeMC uses OAuth2 — your credentials never touch the launcher — and applies official Ely.by authlib patches so your skin shows up everywhere, even on servers without special plugins.
 
-Get your documentation site up and running in minutes.
-
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/installation">
+    Download and install PineconeMC on Windows, macOS, or Linux.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Set up your account and launch Minecraft in minutes.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Ely.by Login" icon="key" href="/accounts/ely-by-login">
+    Authenticate securely with your Ely.by account via OAuth2.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Managing Instances" icon="cubes" href="/instances/creating-instances">
+    Create and organize multiple Minecraft installations.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## Why PineconeMC?
 
-Everything you need to create world-class documentation.
+PineconeMC goes beyond simply adding a username/password prompt for Ely.by. It implements the full OAuth2 flow and uses Ely.by's official authlib patches rather than the community authlib-injector alone.
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
+<CardGroup cols={2}>
+  <Card title="Secure OAuth2 Login" icon="shield-halved" href="/accounts/ely-by-login">
+    Log in through the official Ely.by website. PineconeMC never sees your password.
   </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
+  <Card title="Skins on Any Server" icon="shirt" href="/accounts/skin-support">
+    Official authlib patches let your skin appear even without server-side plugins.
   </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
+  <Card title="Microsoft Accounts" icon="microsoft" href="/accounts/microsoft-login">
+    Keep using your Microsoft account alongside Ely.by — both are supported.
   </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
+  <Card title="Mod & Modpack Support" icon="puzzle-piece" href="/instances/installing-mods">
+    Install mods from Modrinth and CurseForge directly in the launcher.
   </Card>
-</Columns>
+</CardGroup>
 
-## Need inspiration?
+## Get started
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<Steps>
+  <Step title="Download PineconeMC">
+    Grab the latest release from the [GitHub Releases](https://github.com/ElyPrismLauncher/Launcher/releases/latest) page for your operating system.
+  </Step>
+  <Step title="Add your account">
+    Open **Accounts** in the top-right corner and choose **Add Ely.by Account** or **Add Microsoft Account**.
+  </Step>
+  <Step title="Create an instance">
+    Click the **Add Instance** button, select your Minecraft version, and optionally choose a mod loader like Fabric or Forge.
+  </Step>
+  <Step title="Play">
+    Select your instance and click **Launch**. PineconeMC handles Java, authlib patches, and game arguments automatically.
+  </Step>
+</Steps>
+
+<Note>
+  PineconeMC is not endorsed by or affiliated with Prism Launcher or Ely.by. It is an independent community fork distributed under the GPL-3.0 license.
+</Note>

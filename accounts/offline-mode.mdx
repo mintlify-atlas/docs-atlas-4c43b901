@@ -1,0 +1,47 @@
+---
+title: "Play Without an Account Using PineconeMC Offline Mode"
+description: "Offline mode lets you launch Minecraft with a username only — no authentication required. Limited to LAN play and servers without online-mode enabled."
+---
+
+Offline mode lets you launch Minecraft without authenticating against any account service. You provide only a username. No token is issued, no session is created, and no network connection to any authentication server is required. This mode corresponds to `AccountType::Offline` in the launcher's account model.
+
+Because no authentication token is involved, offline mode has significant limitations compared to signed-in accounts. It is primarily useful for local LAN play, offline environments, or testing instance configurations without a live account.
+
+## Adding an offline account
+
+<Steps>
+  <Step title="Open the Accounts menu">
+    Click the **Accounts** button in the top-right corner of PineconeMC, then choose **Manage Accounts**.
+  </Step>
+  <Step title="Add a new account">
+    Click **Add Account** and select **Offline** from the account type list.
+  </Step>
+  <Step title="Enter a username">
+    Type the username you want to use. This name will appear in-game. It does not need to match any registered account.
+  </Step>
+  <Step title="Confirm">
+    Click **OK**. The account is added immediately with the `[Offline]` label and no verification step is performed.
+  </Step>
+</Steps>
+
+<Warning>
+  Offline mode does not work on servers that have `online-mode=true` set in their `server.properties`. Those servers verify your session against Mojang's or Ely.by's authentication servers, which offline accounts cannot satisfy. You will be disconnected immediately.
+</Warning>
+
+<Info>
+  Skins are not rendered for offline accounts on servers. Offline sessions do not carry a signed profile, so neither Mojang's authlib nor Ely.by's authlib patches can resolve a skin texture for your username on the server side. Other players will see you in the default Steve or Alex skin.
+</Info>
+
+## Use cases
+
+<AccordionGroup>
+  <Accordion title="Local LAN play">
+    If you are hosting or joining a LAN world on your local network and the server does not require authentication, offline mode works without any internet connection.
+  </Accordion>
+  <Accordion title="Offline environments">
+    On machines without internet access, offline mode allows you to launch and play single-player or LAN sessions without any account verification step.
+  </Accordion>
+  <Accordion title="Testing instance configurations">
+    When you want to verify that mods, resource packs, or launch arguments are configured correctly, offline mode lets you launch quickly without waiting for token refresh or account validation.
+  </Accordion>
+</AccordionGroup>

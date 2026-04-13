@@ -1,0 +1,86 @@
+---
+title: "Configure HTTP and SOCKS5 Proxy Settings in PineconeMC"
+description: "Route PineconeMC traffic through an HTTP or SOCKS5 proxy to work behind corporate firewalls, restricted networks, or for privacy needs."
+---
+
+If you are behind a corporate firewall or need to route launcher traffic through a proxy server, PineconeMC supports HTTP and SOCKS5 proxies with optional username and password authentication. Proxy settings apply to all network activity initiated by the launcher, including authentication, metadata downloads, and mod/pack downloads.
+
+## Proxy types
+
+PineconeMC offers four proxy mode options, selectable with radio buttons:
+
+| Mode | Behavior |
+|---|---|
+| **Default** | Uses the system proxy configuration (OS-level or environment variables) |
+| **None** | Forces a direct connection, bypassing any system proxy |
+| **HTTP** | Routes traffic through an HTTP proxy at the specified host and port |
+| **SOCKS5** | Routes traffic through a SOCKS5 proxy at the specified host and port |
+
+When **Default** or **None** is selected, the host, port, and authentication fields are disabled. They become editable only when **HTTP** or **SOCKS5** is chosen.
+
+## Connection details
+
+When using HTTP or SOCKS5 mode, fill in the following fields:
+
+| Field | Setting key | Description |
+|---|---|---|
+| **Host** | `ProxyAddr` | Hostname or IP address of the proxy server |
+| **Port** | `ProxyPort` | Port number the proxy listens on |
+| **Username** | `ProxyUser` | Username for proxy authentication (optional) |
+| **Password** | `ProxyPass` | Password for proxy authentication (optional) |
+
+Leave the username and password fields empty if your proxy does not require authentication.
+
+## What traffic uses the proxy
+
+Once configured, the proxy applies to all HTTP/HTTPS requests made by PineconeMC, including:
+
+- Ely.by authentication and session validation
+- Minecraft metadata and version manifest downloads
+- Mod and modpack downloads (Modrinth, CurseForge, etc.)
+- News feed fetching
+- Any other launcher network calls
+
+## Startup connectivity check
+
+At launch, PineconeMC runs a `PineconeNetworkCheck` that sends lightweight `HEAD` requests to three endpoints to determine which backend is reachable:
+
+| Result | Meaning |
+|---|---|
+| `UsePrimary` | `pineconemc.ru` responded successfully — use default URLs |
+| `UseNewFallback` | `pineconemc.github.io` responded — switch to GitHub Pages mirror |
+| `UseOldFallback` | `elyprismlauncher.github.io` responded — switch to legacy mirror |
+| `Offline` | No endpoint responded within the timeout |
+
+When a fallback is selected, PineconeMC automatically updates its metadata and FML libraries URLs for that session. This check uses the same proxy settings you configure here, so a correctly configured proxy will allow the check to reach whichever endpoint is accessible on your network.
+
+## Configuring a proxy
+
+<Steps>
+  <Step title="Open Settings">
+    Click the **Settings** button in the PineconeMC toolbar.
+  </Step>
+  <Step title="Go to the Proxy tab">
+    Select **Proxy** from the left-hand navigation list.
+  </Step>
+  <Step title="Select a proxy type">
+    Choose **HTTP** or **SOCKS5** from the radio button group, depending on your proxy server.
+  </Step>
+  <Step title="Enter host and port">
+    Fill in the **Host** field with your proxy server's hostname or IP address, and enter the **Port** number.
+  </Step>
+  <Step title="Enter credentials if required">
+    If your proxy requires authentication, fill in the **Username** and **Password** fields.
+  </Step>
+  <Step title="Click OK to save">
+    PineconeMC calls `updateProxySettings()` immediately — no restart is required for the proxy to take effect.
+  </Step>
+</Steps>
+
+<Note>
+  Proxy authentication is supported for both HTTP and SOCKS5 proxy types. Fill in the **Username** and **Password** fields to enable it. If those fields are left empty, PineconeMC connects to the proxy without credentials.
+</Note>
+
+<Warning>
+  Incorrect proxy settings will prevent PineconeMC from reaching Ely.by authentication servers and download endpoints. If login or downloads stop working after configuring a proxy, double-check the host, port, and credentials, or temporarily switch the mode back to **Default** to test without the proxy.
+</Warning>

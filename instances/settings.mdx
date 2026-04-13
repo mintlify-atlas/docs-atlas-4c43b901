@@ -1,0 +1,90 @@
+---
+title: "Configure Per-Instance Java, Memory, and Launch Settings"
+description: "Override global settings per instance — assign a specific Java version, set memory limits, add JVM arguments, and configure pre/post launch commands."
+---
+
+Each PineconeMC instance can override the global launcher settings. You can assign a specific Java installation, set custom memory limits, add JVM arguments, configure pre- and post-launch commands, and more — all scoped to a single instance without affecting others.
+
+<Tip>
+  Global defaults are configured in **Settings → Java**. Instance-level settings take priority over global settings when enabled.
+</Tip>
+
+## Settings areas
+
+<Tabs>
+  <Tab title="Components">
+    **Version tab** — Manage the components that make up the instance, including the Minecraft version and mod loaders.
+
+    Open the instance and select the **Version** tab. From here you can:
+
+    - Change the Minecraft version
+    - Install or remove a mod loader (Fabric, Forge, Quilt, NeoForge)
+    - Add or remove individual components and patches
+    - Install jar mods or custom jar replacements
+    - Install Java agent files
+    - Import component files from disk
+    - Reorder components using Move Up / Move Down
+
+    Changes take effect the next time the instance is launched and components are resolved.
+  </Tab>
+  <Tab title="Java & Memory">
+    **Settings tab** — Override Java and memory configuration for this instance.
+
+    Open the instance and select the **Settings** tab. The Java section lets you:
+
+    - Override the Java executable path for this instance
+    - Set minimum and maximum memory allocation (heap size)
+    - Add extra JVM arguments passed to the Java process
+    - Test the selected Java installation directly from this page
+
+    All fields are optional. Leave them blank to inherit the global values from **Settings → Java**.
+  </Tab>
+  <Tab title="Launch commands">
+    **Settings tab** — Configure wrapper commands and pre/post-launch scripts.
+
+    In the same **Settings** tab, the launch section lets you:
+
+    - Set a **pre-launch command** that runs before Minecraft starts
+    - Set a **post-launch command** that runs after Minecraft exits
+    - Set a **wrapper command** to wrap the Java process (for example, a profiler or gamescope on Linux)
+
+    Commands support variable substitution. Leave any field empty to skip that step.
+  </Tab>
+  <Tab title="Servers">
+    **Servers tab** — Pre-configure the in-game server list for this instance.
+
+    Open the instance and select the **Servers** tab. You can add, remove, and reorder server entries. These entries are written directly to the instance's `servers.dat` file and appear in the Minecraft multiplayer menu when the instance is launched.
+
+    You can also join a server directly from this tab without going through the game's menu.
+  </Tab>
+  <Tab title="Worlds">
+    **Worlds tab** — Manage single-player worlds saved in this instance.
+
+    Open the instance and select the **Worlds** tab. From here you can:
+
+    - View all worlds saved in the instance
+    - Copy, rename, or delete a world
+    - Copy the world seed to the clipboard
+    - Add an existing world folder from disk
+    - View and manage data packs attached to a world
+
+    Worlds are stored inside the instance's `.minecraft/saves` directory.
+  </Tab>
+</Tabs>
+
+## Additional per-instance pages
+
+<AccordionGroup>
+  <Accordion title="Game Options">
+    The **Game Options** tab surfaces a parsed view of the instance's `options.txt` file, letting you review and adjust in-game settings (such as video, audio, and control options) directly from the launcher without launching the game first.
+  </Accordion>
+  <Accordion title="Notes">
+    The **Notes** tab provides a free-text scratchpad attached to the instance. Use it to record the purpose of the instance, installed mod versions, known issues, or any other information you want to keep alongside the instance.
+  </Accordion>
+  <Accordion title="Screenshots">
+    The **Screenshots** tab shows screenshots captured while the instance was running. You can open the screenshots folder or view individual screenshots from here.
+  </Accordion>
+  <Accordion title="Log">
+    The **Log** tab displays the live game log while the instance is running and the most recent log after it exits. Useful for diagnosing crashes or mod conflicts.
+  </Accordion>
+</AccordionGroup>

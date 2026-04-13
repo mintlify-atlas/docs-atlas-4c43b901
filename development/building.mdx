@@ -1,0 +1,196 @@
+---
+title: "Build PineconeMC from Source Using CMake, Qt 6, and Ninja"
+description: "Build PineconeMC on Windows, Linux, or macOS using CMake and Qt. Covers all prerequisites, platform-specific steps, and CMake presets."
+---
+
+PineconeMC is built with CMake and Qt 6, and supports Windows, macOS, and Linux. You can build it yourself from the [source repository](https://github.com/ElyPrismLauncher/Launcher) using the instructions below.
+
+## Requirements
+
+Before building, ensure you have the following installed:
+
+<CardGroup cols={2}>
+  <Card title="CMake ≥ 3.25" icon="wrench">
+    The build system. CMakePresets require 3.28 or later when using presets.
+  </Card>
+  <Card title="C++20 compiler" icon="code">
+    GCC, Clang, or MSVC with full C++20 support (`CMAKE_CXX_STANDARD 20`).
+  </Card>
+  <Card title="Qt 6" icon="window">
+    The GUI framework. Required for all platform targets.
+  </Card>
+  <Card title="Java 17+" icon="coffee">
+    Required to build the Java launcher components bundled with the launcher.
+  </Card>
+</CardGroup>
+
+On macOS and Windows (MSVC), vcpkg is used to manage additional C++ dependencies including `libarchive`, `cmark`, `zlib`, `tomlplusplus`, and `libqrencode`. Set `VCPKG_ROOT` in your environment before configuring.
+
+## Build instructions
+
+<Tabs>
+  <Tab title="Linux">
+    <Steps>
+      <Step title="Clone the repository">
+        ```bash
+        git clone https://github.com/ElyPrismLauncher/Launcher.git
+        cd Launcher
+        ```
+      </Step>
+      <Step title="Configure with CMake">
+        Use the bundled preset or configure manually:
+
+        ```bash
+        # Using the preset (recommended)
+        cmake --preset linux
+
+        # Or manually
+        cmake -B build -DCMAKE_BUILD_TYPE=Release
+        ```
+      </Step>
+      <Step title="Build">
+        ```bash
+        cmake --build build
+        # Or, using the preset:
+        cmake --build --preset linux
+        ```
+      </Step>
+      <Step title="Run">
+        ```bash
+        ./build/prismlauncher
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="macOS">
+    <Steps>
+      <Step title="Install vcpkg and set VCPKG_ROOT">
+        The macOS build uses vcpkg for dependencies. Clone it and bootstrap it, then export the path:
+
+        ```bash
+        git clone https://github.com/microsoft/vcpkg.git ~/vcpkg
+        ~/vcpkg/bootstrap-vcpkg.sh
+        export VCPKG_ROOT=~/vcpkg
+        ```
+      </Step>
+      <Step title="Clone the repository">
+        ```bash
+        git clone https://github.com/ElyPrismLauncher/Launcher.git
+        cd Launcher
+        ```
+      </Step>
+      <Step title="Configure with CMake">
+        ```bash
+        # Using the preset (recommended)
+        cmake --preset macos
+
+        # Or for a Universal Binary (x86_64 + arm64)
+        cmake --preset macos_universal
+        ```
+      </Step>
+      <Step title="Build">
+        ```bash
+        cmake --build --preset macos
+        ```
+      </Step>
+      <Step title="Run">
+        ```bash
+        open build/PineconeMC.app
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Windows (MinGW)">
+    <Steps>
+      <Step title="Install prerequisites">
+        Install [Qt 6](https://www.qt.io/download) and a MinGW toolchain (e.g., via [MSYS2](https://www.msys2.org/)). Make sure `cmake` and `ninja` are available on your `PATH`.
+      </Step>
+      <Step title="Clone the repository">
+        ```bat
+        git clone https://github.com/ElyPrismLauncher/Launcher.git
+        cd Launcher
+        ```
+      </Step>
+      <Step title="Configure with CMake">
+        ```bat
+        cmake --preset windows_mingw
+        ```
+      </Step>
+      <Step title="Build">
+        ```bat
+        cmake --build --preset windows_mingw
+        ```
+      </Step>
+      <Step title="Run">
+        ```bat
+        build\prismlauncher.exe
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Windows (MSVC)">
+    <Steps>
+      <Step title="Install vcpkg and set VCPKG_ROOT">
+        ```bat
+        git clone https://github.com/microsoft/vcpkg.git C:\vcpkg
+        C:\vcpkg\bootstrap-vcpkg.bat
+        set VCPKG_ROOT=C:\vcpkg
+        ```
+      </Step>
+      <Step title="Clone the repository">
+        ```bat
+        git clone https://github.com/ElyPrismLauncher/Launcher.git
+        cd Launcher
+        ```
+      </Step>
+      <Step title="Configure with CMake">
+        ```bat
+        cmake --preset windows_msvc
+        ```
+      </Step>
+      <Step title="Build">
+        ```bat
+        cmake --build --preset windows_msvc
+        ```
+      </Step>
+      <Step title="Run">
+        ```bat
+        build\prismlauncher.exe
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Nix dev shell
+
+If you use Nix, a `flake.nix` is included in the repository. Enter the development shell with all dependencies available using:
+
+```bash
+nix develop
+```
+
+A dedicated `nix.yml` GitHub Actions workflow verifies the Nix flake on every push.
+
+## Distribution builds
+
+<Note>
+  If you are packaging PineconeMC for a distribution (e.g., Arch Linux, Fedora, nixpkgs), set the `Launcher_BUILD_PLATFORM` CMake variable to a slug representing your distribution:
+
+  ```bash
+  cmake -B build -DCMAKE_BUILD_TYPE=Release -DLauncher_BUILD_PLATFORM=archlinux
+  ```
+
+  Examples of valid slugs: `archlinux`, `fedora`, `nixpkgs`.
+</Note>
+
+## API keys
+
+<Warning>
+  Building with the default API keys in `CMakeLists.txt` means you accept the terms of:
+
+  - [Microsoft Identity Platform Terms of Use](https://docs.microsoft.com/en-us/legal/microsoft-identity-platform/terms-of-use)
+  - [CurseForge 3rd Party API Terms and Conditions](https://support.curseforge.com/en/support/solutions/articles/9000207405-curse-forge-3rd-party-api-terms-and-conditions)
+
+  If you do not agree, set the relevant keys to empty strings (`""`) in `CMakeLists.txt`. The program will still compile; only the features requiring those keys will be disabled.
+</Warning>

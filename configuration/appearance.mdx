@@ -1,0 +1,89 @@
+---
+title: "Customize PineconeMC Themes, Icons, and Appearance"
+description: "Change the launcher theme, switch icon packs, select a background cat pack, and pick a display language from the Appearance settings page."
+---
+
+PineconeMC inherits Prism Launcher's theming system and extends it with support for custom themes. You can choose from several built-in widget themes, swap icon packs, enable a decorative background, and change the interface language — all from a single Appearance page.
+
+## Theme selection
+
+The **Application theme** dropdown controls the Qt widget style used throughout the launcher UI.
+
+PineconeMC ships three built-in themes:
+
+| Theme | Description |
+|---|---|
+| **System** | Inherits your operating system's default widget style and color palette |
+| **Dark** | A dark Fusion-based palette (`DarkTheme`) |
+| **Bright** | A light Fusion-based palette (`BrightTheme`) |
+
+In addition to the built-in themes, PineconeMC exposes every Qt style available on your system (reported by `QStyleFactory`). On Windows 11 this includes `windows11`; on Linux you may see `Breeze`, `Adwaita`, or others depending on installed Qt plugins.
+
+### Custom themes
+
+You can install third-party themes by placing them in the `themes/` folder inside the PineconeMC data directory. Two formats are supported:
+
+- **JSON themes** — a folder containing a `theme.json` manifest (based on `DarkTheme` by default).
+- **QSS/CSS themes** — a folder containing one or more `.qss` or `.css` stylesheet files.
+
+<Tip>
+  Themes only affect the launcher window. Minecraft's own UI, resource packs, and shader packs are unrelated to this setting.
+</Tip>
+
+## Icon packs
+
+The **Icon theme** dropdown selects which icon set is used for buttons and toolbar actions.
+
+Built-in icon packs available:
+
+- `pe_colored`, `pe_light`, `pe_dark`, `pe_blue`
+- `breeze_light`, `breeze_dark`
+- `OSX`, `iOS`
+- `flat`, `flat_white`
+- `multimc`
+
+Custom icon packs can be installed in the `iconthemes/` folder. Each pack is a directory containing an `index.theme` file compatible with the Freedesktop icon theme specification.
+
+## Background cat
+
+The **Background cat** selector chooses the decorative image shown in the main launcher window. Four built-in options are included:
+
+| ID | Name |
+|---|---|
+| `kitteh` | Background Cat (from MultiMC) |
+| `rory` | Rory ID 11 (drawn by Ashtaka) |
+| `rory-flat` | Rory ID 11 — flat edition (drawn by Ashtaka) |
+| `teawie` | Teawie (drawn by SympathyTea) |
+
+Custom cat packs can be added to the `catpacks/` folder. A cat pack is either a single image file or a directory containing a `catpack.json` manifest that defines date-range variants (for seasonal variants tied to specific calendar periods).
+
+## Language selection
+
+The **Language** dropdown sets the display language for the launcher interface. Changes to the language selection take effect immediately in the appearance preview; a full restart may be required for all strings to update.
+
+## Changing the theme
+
+<Steps>
+  <Step title="Open Settings">
+    Click the **Settings** button in the PineconeMC toolbar.
+  </Step>
+  <Step title="Go to the Appearance page">
+    Select **Appearance** from the left-hand navigation list.
+  </Step>
+  <Step title="Pick an application theme">
+    Use the **Application theme** dropdown to select a built-in or custom theme. The launcher preview updates live.
+  </Step>
+  <Step title="Optionally change the icon pack">
+    Use the **Icon theme** dropdown to swap icon sets.
+  </Step>
+  <Step title="Optionally select a background cat">
+    Use the **Background cat** dropdown to choose a different decorative background.
+  </Step>
+  <Step title="Click OK to save">
+    Your selections are saved to settings and applied immediately.
+  </Step>
+</Steps>
+
+<Note>
+  The first-run setup wizard also includes an Appearance step where you can configure your theme and icon pack before the main window opens.
+</Note>

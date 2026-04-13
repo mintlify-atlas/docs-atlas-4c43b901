@@ -1,0 +1,46 @@
+---
+title: "Sign in with Your Microsoft (MSA) Account in PineconeMC"
+description: "PineconeMC retains full Microsoft account support alongside Ely.by. The MSA flow is identical to upstream Prism Launcher — no feature has been removed."
+---
+
+PineconeMC is a fork of Prism Launcher and preserves full Microsoft account (MSA) support. If you own Minecraft through the Microsoft Store or a standard Mojang account migrated to Microsoft, you can add it in PineconeMC exactly as you would in Prism Launcher. Ely.by and Microsoft accounts can coexist and be switched between freely.
+
+## Login methods
+
+<Tabs>
+  <Tab title="Browser-based (recommended)">
+    The `MSAStep` flow opens your default browser and navigates to the Microsoft Identity Platform authorization endpoint (`login.microsoftonline.com`). After you sign in and consent, Microsoft redirects back to the launcher with an authorization code. The launcher exchanges this for an MSA token using the OAuth2 authorization code flow (`QOAuth2AuthorizationCodeFlow`).
+  </Tab>
+  <Tab title="Device code">
+    The `MSADeviceCodeStep` flow is available for environments without a browser. PineconeMC requests a device code from the Microsoft device authorization endpoint, displays a URL and code to you, and polls the token endpoint every 5 seconds until you complete the sign-in on another device or the code expires.
+  </Tab>
+</Tabs>
+
+## Adding a Microsoft account
+
+<Steps>
+  <Step title="Open the Accounts menu">
+    Click the **Accounts** button in the top-right corner of PineconeMC, then choose **Manage Accounts**.
+  </Step>
+  <Step title="Add a new account">
+    Click **Add Account** and select **Microsoft** from the account type list.
+  </Step>
+  <Step title="Sign in with Microsoft">
+    PineconeMC opens your browser to the Microsoft sign-in page. Log in with your Microsoft account credentials and, if prompted, grant the requested permissions.
+  </Step>
+  <Step title="Return to the launcher">
+    After authentication succeeds, the launcher completes the token exchange and adds your account. It appears in the accounts list with the `[MSA]` label.
+  </Step>
+</Steps>
+
+<Tip>
+  If you have multiple accounts — for example, both a Microsoft account and an Ely.by account — you can switch between them from the **Accounts** menu at any time without restarting PineconeMC.
+</Tip>
+
+## API keys and terms of service
+
+PineconeMC is distributed with API keys inherited from the upstream Prism Launcher build. By using a build that includes these keys, you are subject to the [Microsoft Identity Platform Terms of Use](https://docs.microsoft.com/en-us/legal/microsoft-identity-platform/terms-of-use). If you build PineconeMC from source and do not replace the API keys in `CMakeLists.txt`, the same terms apply. You can set the keys to empty strings (`""`) to disable MSA functionality in custom builds.
+
+<Note>
+  Microsoft accounts use Mojang's skin and cape system. Skins are not managed through PineconeMC's Ely.by skin panel for MSA accounts — use the official [Minecraft profile page](https://www.minecraft.net/en-us/profile) instead.
+</Note>

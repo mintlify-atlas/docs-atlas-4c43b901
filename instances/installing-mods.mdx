@@ -1,0 +1,64 @@
+---
+title: "Install and Update Mods from Modrinth and CurseForge"
+description: "PineconeMC lets you browse, install, and update mods from Modrinth and CurseForge without leaving the launcher — all scoped to a single instance."
+---
+
+PineconeMC supports installing mods directly from Modrinth and CurseForge without leaving the launcher. Each mod is installed into a specific instance, so your mod lists stay completely separate between instances.
+
+<Note>
+  A compatible mod loader must be installed in the instance before you can run mods. Open the instance's **Version** tab and install Fabric, Forge, Quilt, or NeoForge if you have not done so already.
+</Note>
+
+## Supported mod platforms
+
+PineconeMC can browse and install mods from the following sources:
+
+- **Modrinth** — open platform with a large selection of Fabric, Quilt, Forge, and NeoForge mods
+- **CurseForge (Flame)** — the largest mod repository, supporting Forge and Fabric
+
+## Install a mod
+
+<Steps>
+  <Step title="Open the instance">
+    Double-click the instance in the main window to open it, or right-click and select **Edit**.
+  </Step>
+  <Step title="Go to the Mods tab">
+    Select the **Mods** tab in the instance window. This shows all currently installed mods for this instance.
+  </Step>
+  <Step title="Click Add Mods">
+    Click **Add Mods** (or the download icon) to open the mod browser.
+  </Step>
+  <Step title="Choose a platform and search">
+    Select **Modrinth** or **CurseForge** from the platform selector, then search for the mod by name. Results are automatically filtered to mods compatible with your instance's Minecraft version and mod loader.
+  </Step>
+  <Step title="Install the mod">
+    Click **Install** next to the mod you want. PineconeMC downloads the mod file and places it in the instance's `mods` folder. Dependencies are resolved automatically where supported.
+  </Step>
+</Steps>
+
+## Update mods
+
+<Steps>
+  <Step title="Open the Mods tab">
+    Open the instance and navigate to the **Mods** tab.
+  </Step>
+  <Step title="Check for updates">
+    Click **Check for Updates**. PineconeMC queries Modrinth and CurseForge for newer versions of your installed mods that match your Minecraft version and loader.
+  </Step>
+  <Step title="Apply updates">
+    Select the mods you want to update and click **Update Selected** (or update all at once). The old mod file is replaced with the new version.
+  </Step>
+</Steps>
+
+<Tip>
+  Mods are isolated per instance. Installing or updating a mod in one instance has no effect on any other instance.
+</Tip>
+
+## Other resource types
+
+In addition to mods, PineconeMC manages several other resource types per instance, each accessible from its own tab in the instance window:
+
+- **Resource packs** — texture and asset replacements
+- **Shader packs** — visual shader programs
+- **Texture packs** — legacy texture replacements (pre-1.6 format)
+- **Data packs** — server-side data packs applied to worlds
